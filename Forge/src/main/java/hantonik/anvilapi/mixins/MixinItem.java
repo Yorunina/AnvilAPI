@@ -1,6 +1,8 @@
 package hantonik.anvilapi.mixins;
 
-import hantonik.anvilapi.utils.AADisabledRecipes;
+import hantonik.anvilapi.init.AARecipeTypes;
+import hantonik.anvilapi.utils.AARecipeHelper;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.flag.FeatureElement;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -13,20 +15,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Item.class)
 public abstract class MixinItem implements FeatureElement, ItemLike, IForgeItem {
-    @Inject(at = @At("RETURN"), method = "isValidRepairItem", cancellable = true)
-    public void isValdRepairItem(ItemStack stack, ItemStack repairCandidate, CallbackInfoReturnable<Boolean> callback) {
-        if (AADisabledRecipes.isRepairItemDisabled(repairCandidate) || AADisabledRecipes.isRepairDisabled(stack, repairCandidate))
-            callback.setReturnValue(false);
-
-//        var level = Minecraft.getInstance().level;
-//
-//        if (level != null) {
-//            var container = new SimpleContainer(2);
-//            container.addItem(stack);
-//            container.addItem(repairCandidate);
-//
-//            if (level.getRecipeManager().getRecipeFor(AARecipeTypes.ANVIL_REPAIR.get(), container, level).isPresent())
-//                callback.setReturnValue(true);
-//        }
+    @Inject(at = @At("HEAD"), method = "isValidRepairItem", cancellable = true)
+    public void isValidRepairItem(ItemStack stack, ItemStack repairCandidate, CallbackInfoReturnable<Boolean> callback) {
+        if (AARecipeHelper.getRecipeManager().getRecipeFor(AARecipeTypes.ANVIL_REPAIR.get(), new SimpleContainer(stack, repairCandidate), null).isPresent())
+            callback.setReturnValue(true);
     }
 }
