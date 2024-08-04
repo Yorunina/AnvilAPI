@@ -112,7 +112,6 @@ task publishCurseForge(type: TaskPublishCurseForge) {
 	modFile.addOptional('crafttweaker', 'roughly-enough-items', 'jei')
 
 	modFile.changelogType = CFConstants.CHANGELOG_HTML
-	modFile.changelog = file("${project(':Changelog').projectDir}/changelog.html").getText().replace([ '${version}': "$mc_version-fabric-$version", '&#x60;': '`' ])
 }
 
 modrinth {

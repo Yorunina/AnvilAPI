@@ -88,7 +88,7 @@ dependencies {
 
     compileOnly fg.deobf("mezz.jei:jei-$mc_version-common-api:$jei_version")
     compileOnly fg.deobf("mezz.jei:jei-$mc_version-forge-api:$jei_version")
-//    implementation fg.deobf("mezz.jei:jei-$mc_version-forge:$jei_version")
+    implementation fg.deobf("mezz.jei:jei-$mc_version-forge:$jei_version")
 
     compileOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-default-plugin-forge:$rei_version")
     compileOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-api-forge:$rei_version")
@@ -136,7 +136,6 @@ task publishCurseForge(type: TaskPublishCurseForge) {
     modFile.addOptional('crafttweaker', 'roughly-enough-items', 'jei')
 
     modFile.changelogType = CFConstants.CHANGELOG_HTML
-    modFile.changelog = file("${project(':Changelog').projectDir}/changelog.html").getText().replace([ '${version}': "$mc_version-forge-$version", '&#x60;': '`' ])
 }
 
 modrinth {

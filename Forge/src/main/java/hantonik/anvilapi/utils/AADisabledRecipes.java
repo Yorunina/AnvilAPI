@@ -15,7 +15,6 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
@@ -23,19 +22,20 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class AADisabledRecipes implements ResourceManagerReloadListener {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path PATH = FMLPaths.CONFIGDIR.get().toAbsolutePath();
 
-    private static final List<Pair<Ingredient, Ingredient>> REPAIR = Lists.newArrayList();
-    private static final List<Pair<Pair<Enchantment, Integer>, Ingredient>> ENCHANTMENTS = Lists.newArrayList();
-    private static final List<Ingredient> REPAIR_ITEMS = Lists.newArrayList();
+    private static final List<Pair<Ingredient, Ingredient>> REPAIR = new ArrayList<>();
+    private static final List<Pair<Pair<Enchantment, Integer>, Ingredient>> ENCHANTMENTS = new ArrayList<>();
+    private static final List<Ingredient> REPAIR_ITEMS = new ArrayList<>();
 
-    private static final List<Pair<Ingredient, Ingredient>> REPAIR_INTERNAL = Lists.newArrayList();
-    private static final List<Pair<Pair<Enchantment, Integer>, Ingredient>> ENCHANTMENTS_INTERNAL = Lists.newArrayList();
-    private static final List<Ingredient> REPAIR_ITEMS_INTERNAL = Lists.newArrayList();
+    private static final List<Pair<Ingredient, Ingredient>> REPAIR_INTERNAL = new ArrayList<>();
+    private static final List<Pair<Pair<Enchantment, Integer>, Ingredient>> ENCHANTMENTS_INTERNAL = new ArrayList<>();
+    private static final List<Ingredient> REPAIR_ITEMS_INTERNAL = new ArrayList<>();
 
     public AADisabledRecipes() {
         try {
